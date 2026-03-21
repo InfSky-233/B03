@@ -19,7 +19,8 @@ export default function Header() {
 
   useEffect(() => {
     setIsMenuOpen(false);
-  }, [location]);
+    setIsScrolled(false);
+  }, [location.pathname]);
 
   const navLinks = [
     { path: '/', label: '首页' },

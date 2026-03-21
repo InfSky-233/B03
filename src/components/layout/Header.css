@@ -5,12 +5,11 @@
   right: 0;
   z-index: 100;
   height: var(--header-height);
-  background-color: transparent;
+  background-color: var(--color-bg-primary);
   transition: all var(--transition-normal);
 }
 
 .header--scrolled {
-  background-color: var(--color-bg-primary);
   box-shadow: 0 1px 0 var(--color-border-light);
   backdrop-filter: blur(10px);
 }

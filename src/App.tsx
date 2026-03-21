@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import Header from './components/layout/Header';
 import Footer from './components/layout/Footer';
@@ -10,17 +10,6 @@ import './App.css';
 
 export default function App() {
   const location = useLocation();
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const prevLocationRef = useRef(location.pathname);
-
-  useEffect(() => {
-    if (prevLocationRef.current !== location.pathname) {
-      setIsTransitioning(true);
-      const timer = setTimeout(() => setIsTransitioning(false), 300);
-      prevLocationRef.current = location.pathname;
-      return () => clearTimeout(timer);
-    }
-  }, [location.pathname]);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -31,7 +20,7 @@ export default function App() {
       <AnimationProvider>
         <div className="app">
           <Header />
-          <main className={`main ${isTransitioning ? 'main--transitioning' : ''}`}>
+          <main className="main">
             <AppRoutes />
           </main>
           <Footer />

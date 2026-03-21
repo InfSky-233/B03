@@ -1,0 +1,113 @@
+.tags {
+  min-height: 100%;
+}
+
+.tags__container {
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  padding: var(--spacing-4xl) var(--spacing-xl) var(--spacing-3xl);
+}
+
+.tags__header {
+  text-align: center;
+  margin-bottom: var(--spacing-3xl);
+}
+
+.tags__back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  font-size: 0.875rem;
+  color: var(--color-text-tertiary);
+  margin-bottom: var(--spacing-lg);
+  transition: color var(--transition-fast);
+}
+
+.tags__back-link:hover {
+  color: var(--color-accent);
+}
+
+.tags__back-link svg {
+  width: 14px;
+  height: 14px;
+}
+
+.tags__title {
+  font-family: var(--font-heading);
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-sm);
+  letter-spacing: -0.02em;
+  animation: fadeInUp 0.5s ease forwards;
+}
+
+.tags__subtitle {
+  font-size: 1rem;
+  color: var(--color-text-tertiary);
+  animation: fadeInUp 0.4s ease forwards;
+  animation-delay: 0.1s;
+}
+
+.tags__count {
+  font-size: 0.9rem;
+  color: var(--color-text-tertiary);
+  animation: fadeInUp 0.4s ease forwards;
+  animation-delay: 0.1s;
+}
+
+.tags__cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+  justify-content: center;
+}
+
+.tags__item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-md);
+  background-color: var(--color-bg-secondary);
+  border-radius: var(--radius-md);
+  animation: fadeInUp 0.4s ease forwards;
+  transition: all var(--transition-normal);
+}
+
+.tags__item:hover {
+  background-color: var(--color-accent-lighter);
+  transform: translateY(-2px);
+}
+
+.tags__item-name {
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+  transition: color var(--transition-fast);
+}
+
+.tags__item:hover .tags__item-name {
+  color: var(--color-accent);
+}
+
+.tags__item-count {
+  font-size: 0.75rem;
+  color: var(--color-text-tertiary);
+  background-color: var(--color-bg-tertiary);
+  padding: 0.1em 0.5em;
+  border-radius: var(--radius-sm);
+}
+
+.tags__posts {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 768px) {
+  .tags__container {
+    padding: var(--spacing-3xl) var(--spacing-xl);
+  }
+  
+  .tags__title {
+    font-size: 2rem;
+  }
+}

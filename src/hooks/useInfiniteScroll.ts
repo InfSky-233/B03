@@ -12,13 +12,13 @@ function arePostsEqual(a: Post[], b: Post[]): boolean {
 
 export function useInfiniteScroll(allPosts: Post[]) {
   const [displayedPosts, setDisplayedPosts] = useState<Post[]>([]);
-  const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
   const observerRef = useRef<IntersectionObserver | null>(null);
   const loadMoreRef = useRef<HTMLDivElement>(null);
   const prevPostsRef = useRef<Post[]>([]);
   const isLoadingRef = useRef(false);
+  const pageRef = useRef(1);
 
   const loadPosts = useCallback((pageNum: number, posts: Post[]) => {
     if (isLoadingRef.current) return;
@@ -39,7 +39,7 @@ export function useInfiniteScroll(allPosts: Post[]) {
   useEffect(() => {
     if (!arePostsEqual(prevPostsRef.current, allPosts)) {
       prevPostsRef.current = allPosts;
-      setPage(1);
+      pageRef.current = 1;
       setDisplayedPosts([]);
       setHasMore(true);
       if (allPosts.length > 0) {
@@ -56,11 +56,8 @@ export function useInfiniteScroll(allPosts: Post[]) {
     observerRef.current = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting && hasMore && !loading && !isLoadingRef.current) {
-          setPage((prev) => {
-            const nextPage = prev + 1;
-            loadPosts(nextPage, allPosts);
-            return nextPage;
-          });
+          pageRef.current += 1;
+          loadPosts(pageRef.current, allPosts);
         }
       },
       { threshold: 0.1 }

@@ -1,16 +1,26 @@
-import { useParams, Link } from 'react-router-dom';
-import { tags, getPostsByTag, posts } from '../data/posts';
-import PostCard from '../components/post/PostCard';
-import './Tags.css';
+import { useMemo } from "react";
+import { useParams, Link } from "react-router-dom";
+import { tags, getPostsByTag, posts } from "../data/posts";
+import PostCard from "../components/post/PostCard";
+import { useInfiniteScroll } from "../hooks/useInfiniteScroll";
+import "./Tags.css";
 
 export default function Tags() {
   const { name } = useParams<{ name?: string }>();
-  const filteredPosts = name ? getPostsByTag(name) : [];
-  
-  const tagCounts = tags.reduce((acc, tag) => {
-    acc[tag.name] = posts.filter(p => p.tags.includes(tag.name)).length;
-    return acc;
-  }, {} as Record<string, number>);
+  const filteredPosts = useMemo(
+    () => (name ? getPostsByTag(name) : []),
+    [name]
+  );
+  const { displayedPosts, loading, hasMore, loadMoreRef } =
+    useInfiniteScroll(filteredPosts);
+
+  const tagCounts = tags.reduce(
+    (acc, tag) => {
+      acc[tag.name] = posts.filter((p) => p.tags.includes(tag.name)).length;
+      return acc;
+    },
+    {} as Record<string, number>,
+  );
 
   if (name) {
     return (
@@ -18,7 +28,12 @@ export default function Tags() {
         <div className="tags__container">
           <header className="tags__header">
             <Link to="/tags" className="tags__back-link">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+              >
                 <path d="M19 12H5M12 19l-7-7 7-7" />
               </svg>
               全部标签
@@ -28,9 +43,29 @@ export default function Tags() {
           </header>
 
           <div className="tags__posts">
-            {filteredPosts.map((post, index) => (
-              <PostCard key={post.id} post={post} index={index} />
+            {displayedPosts.map((post, index) => (
+              <div
+                key={post.id}
+                className="post-card-wrapper"
+                style={{
+                  animationDelay: `${Math.min(index % 10, 5) * 0.08}s`,
+                }}
+              >
+                <PostCard post={post} index={index} />
+              </div>
             ))}
+          </div>
+
+          <div ref={loadMoreRef} className="tags__load-more">
+            {loading && (
+              <div className="tags__loading">
+                <div className="tags__loading-spinner" />
+                <span>加载中...</span>
+              </div>
+            )}
+            {!hasMore && !loading && displayedPosts.length > 0 && (
+              <div className="tags__no-more">— 已加载全部文章 —</div>
+            )}
           </div>
         </div>
       </div>

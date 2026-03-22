@@ -1,8 +1,12 @@
-import PostCard from '../components/post/PostCard';
-import { posts } from '../data/posts';
-import './Home.css';
+import PostCard from "../components/post/PostCard";
+import { posts } from "../data/posts";
+import { useInfiniteScroll } from "../hooks/useInfiniteScroll";
+import "./Home.css";
 
 export default function Home() {
+  const { displayedPosts, loading, hasMore, loadMoreRef } =
+    useInfiniteScroll(posts);
+
   return (
     <div className="home">
       <section className="home__hero">
@@ -12,9 +16,29 @@ export default function Home() {
 
       <section className="home__content">
         <div className="home__posts">
-          {posts.map((post, index) => (
-            <PostCard key={post.id} post={post} index={index} />
+          {displayedPosts.map((post, index) => (
+            <div
+              key={post.id}
+              className="post-card-wrapper"
+              style={{
+                animationDelay: `${Math.min(index % 10, 5) * 0.08}s`,
+              }}
+            >
+              <PostCard post={post} index={index} />
+            </div>
           ))}
+        </div>
+
+        <div ref={loadMoreRef} className="home__load-more">
+          {loading && (
+            <div className="home__loading">
+              <div className="home__loading-spinner" />
+              <span>加载中...</span>
+            </div>
+          )}
+          {!hasMore && !loading && displayedPosts.length > 0 && (
+            <div className="home__no-more">— 已加载全部文章 —</div>
+          )}
         </div>
       </section>
     </div>

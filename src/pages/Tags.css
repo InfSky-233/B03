@@ -69,8 +69,11 @@
 }
 
 .tags__item:hover {
-  background-color: var(--color-accent-lighter);
-  transform: translateY(-2px);
+  background-color: var(--color-bg-secondary);
+}
+
+[data-theme="dark"] .tags__item:hover {
+  background-color: var(--color-bg-secondary);
 }
 
 .tags__item-name {

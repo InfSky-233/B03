@@ -26,6 +26,11 @@
   box-shadow: 0 4px 12px var(--color-shadow-hover);
 }
 
+[data-theme="dark"] .back-to-top:hover {
+  background-color: #4bc47a;
+  box-shadow: 0 0 20px rgba(75, 196, 122, 0.4);
+}
+
 .back-to-top:active {
   transform: translateY(0);
 }

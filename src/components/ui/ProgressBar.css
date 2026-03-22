@@ -13,3 +13,8 @@
   background-color: var(--color-accent);
   transition: width 0.1s ease-out;
 }
+
+[data-theme="dark"] .progress-bar__fill {
+  background-color: #4bc47a;
+  box-shadow: 0 0 10px rgba(75, 196, 122, 0.5);
+}

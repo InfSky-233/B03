@@ -93,9 +93,11 @@
 }
 
 .about__tech-item:hover {
-  background-color: var(--color-bg-tertiary);
-  transform: translateY(-4px);
-  box-shadow: 0 4px 12px var(--color-shadow);
+  background-color: var(--color-bg-secondary);
+}
+
+[data-theme="dark"] .about__tech-item:hover .about__tech-name {
+  color: #4bc47a;
 }
 
 .about__tech-icon {
@@ -151,9 +153,12 @@
 }
 
 .about__contact-link:hover {
-  background-color: var(--color-bg-tertiary);
+  background-color: var(--color-bg-secondary);
   color: var(--color-text-primary);
-  transform: translateY(-2px);
+}
+
+[data-theme="dark"] .about__contact-link:hover {
+  color: #4bc47a;
 }
 
 .about__contact-link svg {

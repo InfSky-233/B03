@@ -72,6 +72,11 @@
   color: var(--color-accent);
 }
 
+[data-theme="dark"] .post__tag:hover {
+  background-color: rgba(75, 196, 122, 0.15);
+  box-shadow: 0 0 12px rgba(75, 196, 122, 0.2);
+}
+
 .post__content {
   max-width: 720px;
   margin: 0 auto;

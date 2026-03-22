@@ -11,6 +11,7 @@ import "./App.css";
 
 export default function App() {
   const location = useLocation();
+  const isHomePage = location.pathname === "/";
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -22,7 +23,7 @@ export default function App() {
         <NavigationProvider>
           <div className="app">
             <Header />
-            <main className="main">
+            <main className={`main ${isHomePage ? "main--home" : ""}`}>
               <AppRoutes />
             </main>
             <Footer />

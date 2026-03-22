@@ -5,18 +5,89 @@
   right: 0;
   z-index: 50;
   height: var(--header-height);
-  background-color: var(--background);
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(5px);
+  border-bottom: none;
   transition: all var(--transition-base);
 }
 
+[data-theme="dark"] .header {
+  background-color: rgba(26, 26, 26, 0.2);
+}
+
 .header--scrolled {
-  background-color: rgba(250, 250, 249, 0.85);
-  backdrop-filter: blur(12px);
-  box-shadow: var(--shadow-subtle);
+  background-color: rgba(250, 250, 249, 0.4);
 }
 
 [data-theme="dark"] .header--scrolled {
-  background-color: rgba(26, 26, 26, 0.85);
+  background-color: rgba(26, 26, 26, 0.4);
+}
+
+.header--home {
+  background-color: transparent;
+  backdrop-filter: none;
+}
+
+.header--home .header__link {
+  color: rgba(255, 255, 255, 0.85);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.header--home .header__link:hover {
+  color: #ffffff;
+}
+
+.header--home .header__link--active {
+  color: #ffffff;
+}
+
+.header--home .header__logo {
+  color: #ffffff;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.header--home .header__menu-btn {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.header--home .theme-toggle {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.header--home .theme-toggle:hover {
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.header--home .header__menu-btn {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.header--home .header__menu-btn:hover {
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.header--menu-open {
+  background-color: rgba(250, 250, 249, 0.95);
+  backdrop-filter: blur(12px);
+}
+
+[data-theme="dark"] .header--menu-open {
+  background-color: rgba(26, 26, 26, 0.95);
+}
+
+.header--menu-open .header__logo {
+  color: var(--foreground);
+  text-shadow: none;
+}
+
+.header--menu-open .header__menu-btn {
+  color: var(--muted-foreground);
+}
+
+.header--menu-open .theme-toggle {
+  color: var(--muted-foreground);
 }
 
 .header__container {
@@ -26,19 +97,112 @@
   height: 100%;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
+  gap: var(--spacing-2xl);
 }
 
 .header__logo {
+  margin-right: auto;
   font-size: 1.125rem;
   font-weight: 700;
   color: var(--foreground);
   letter-spacing: -0.02em;
   transition: opacity var(--transition-base);
+  position: relative;
+  padding-left: 10px;
 }
 
-.header__logo:hover {
-  opacity: 0.7;
+.header__logo::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 52%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 21px;
+  background-color: #2adb5c;
+}
+
+.header__logo-scroll {
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  transform: translateX(-50%);
+  padding: 2px;
+  margin-top: 12px;
+  opacity: 0;
+  visibility: hidden;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.7);
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.header__logo:hover .header__logo-scroll {
+  opacity: 1;
+  visibility: visible;
+}
+
+.header__logo-scroll-content {
+  position: relative;
+  background: var(--background);
+  border: 1px solid #969696;
+  border-radius: 2px;
+  padding: 0 12px;
+  margin: 4px;
+  box-shadow: none;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), padding 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), gap 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+.header__logo:hover .header__logo-scroll-content {
+  max-height: 215px;
+  padding: 16px 12px;
+  gap: 6px;
+}
+
+.header__logo-scroll-text {
+  display: block;
+  font-family: "SimHei", "Heiti SC", "Microsoft YaHei", sans-serif;
+  font-size: 26px;
+  color: var(--foreground);
+  letter-spacing: 0;
+  line-height: 1.2;
+  text-shadow: none;
+}
+
+.header__logo-scroll-content::before {
+  display: none;
+}
+
+.header__logo-scroll-content::after {
+  display: none;
+}
+
+
+[data-theme="dark"] .header__logo:hover {
+  opacity: 1;
+  color: var(--primary);
+}
+
+[data-theme="dark"] .header__logo-scroll-content {
+  background: var(--background);
+  border-color: #555;
+}
+
+[data-theme="dark"] .header__logo-scroll-text {
+  color: var(--foreground);
+}
+
+.header__logo-text{
+  font-family: "LXGW WenKai", "STKaiti", "华文楷体", serif;
+  font-size: 1.5rem;
+  letter-spacing: 0.2rem;
+  font-weight: 400;
 }
 
 .header__nav {

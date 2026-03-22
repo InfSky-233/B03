@@ -29,7 +29,10 @@
 }
 
 .footer__link {
+   font-family: "LXGW WenKai", "STKaiti", "华文楷体", serif;
+  font-weight: 400;
   font-size: 0.875rem;
+  letter-spacing: 0.2rem;
   color: var(--muted-foreground);
   transition: color var(--transition-base);
 }

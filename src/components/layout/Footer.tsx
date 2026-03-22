@@ -1,5 +1,4 @@
-import { Link } from 'react-router-dom';
-import './Footer.css';
+import "./Footer.css";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -12,8 +11,9 @@ export default function Footer() {
             © {currentYear} Blog. All rights reserved.
           </p>
           <nav className="footer__nav">
-            <Link to="/" className="footer__link">首页</Link>
-            <Link to="/about" className="footer__link">关于</Link>
+            <a href="https://www.shidianguji.com/" target="_blank" rel="noopener noreferrer" className="footer__link">
+              格物以致知。
+            </a>
           </nav>
         </div>
       </div>

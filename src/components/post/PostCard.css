@@ -16,11 +16,17 @@
 .post-card__link {
   position: relative;
   display: block;
-  padding: var(--spacing-lg);
+  padding: var(--spacing-md);
   z-index: 2;
 }
 
 @media (min-width: 640px) {
+  .post-card__link {
+    padding: var(--spacing-lg);
+  }
+}
+
+@media (min-width: 768px) {
   .post-card__link {
     padding: var(--spacing-xl);
   }
@@ -73,7 +79,7 @@
 [data-theme="dark"] .post-card__border-glow {
   padding: 2px;
   background: radial-gradient(
-    300px circle at var(--mouse-x) var(--mouse-y),
+    350px circle at var(--mouse-x) var(--mouse-y),
     #27bd51 0%,
     rgba(39, 189, 81, 0.6) 30%,
     rgba(39, 189, 81, 0.2) 50%,

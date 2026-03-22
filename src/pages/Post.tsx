@@ -1,4 +1,4 @@
-import { useParams, Link, useNavigate } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { marked, Renderer } from "marked";
 import hljs from "highlight.js";
 import "highlight.js/styles/github-dark.css";
@@ -36,8 +36,12 @@ marked.setOptions({
 
 export default function PostPage() {
   const { id } = useParams<{ id: string }>();
-  const navigate = useNavigate();
   const post = getPostById(id || "");
+
+  const currentIndex = posts.findIndex((p) => p.id === id);
+  const prevPost = currentIndex > 0 ? posts[currentIndex - 1] : null;
+  const nextPost =
+    currentIndex < posts.length - 1 ? posts[currentIndex + 1] : null;
 
   const relatedPosts = posts
     .filter((p) => p.id !== id && p.category === post?.category)
@@ -69,24 +73,6 @@ export default function PostPage() {
     <article className="post">
       <ProgressBar />
 
-      <div className="post__container">
-        <button
-          onClick={() => navigate(-1)}
-          className="post__back-link"
-          style={{ marginBottom: "2.5rem" }}
-        >
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-          >
-            <path d="M19 12H5M12 19l-7-7 7-7" />
-          </svg>
-          返回
-        </button>
-      </div>
-
       <header className="post__header">
         <div className="post__container">
           <div className="post__meta">
@@ -114,6 +100,57 @@ export default function PostPage() {
         </div>
       </div>
 
+      {(prevPost || nextPost) && (
+        <nav className="post__nav">
+          <div className="post__container">
+            <div className="post__nav-links">
+              {prevPost ? (
+                <Link
+                  to={`/post/${prevPost.id}`}
+                  className="post__nav-item post__nav-item--prev"
+                >
+                  <span className="post__nav-label">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                    >
+                      <path d="M19 12H5M12 19l-7-7 7-7" />
+                    </svg>
+                    上一篇
+                  </span>
+                  <span className="post__nav-title">{prevPost.title}</span>
+                </Link>
+              ) : (
+                <div className="post__nav-item post__nav-item--empty" />
+              )}
+              {nextPost ? (
+                <Link
+                  to={`/post/${nextPost.id}`}
+                  className="post__nav-item post__nav-item--next"
+                >
+                  <span className="post__nav-label">
+                    下一篇
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                    >
+                      <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                  </span>
+                  <span className="post__nav-title">{nextPost.title}</span>
+                </Link>
+              ) : (
+                <div className="post__nav-item post__nav-item--empty" />
+              )}
+            </div>
+          </div>
+        </nav>
+      )}
+
       {relatedPosts.length > 0 && (
         <section className="post__related">
           <div className="post__container">
@@ -137,22 +174,6 @@ export default function PostPage() {
           </div>
         </section>
       )}
-
-      <footer className="post__footer">
-        <div className="post__container">
-          <Link to="/" className="post__back-link">
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-            >
-              <path d="M19 12H5M12 19l-7-7 7-7" />
-            </svg>
-            所有文章
-          </Link>
-        </div>
-      </footer>
     </article>
   );
 }

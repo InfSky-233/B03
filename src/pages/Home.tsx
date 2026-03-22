@@ -9,9 +9,12 @@ export default function Home() {
 
   return (
     <div className="home">
-      <section className="home__hero">
-        <h1 className="home__title">博客</h1>
-        <p className="home__subtitle">记录思考，分享成长</p>
+      <section className="home__banner">
+        <img
+          src={`${import.meta.env.BASE_URL}banner.png`}
+          alt="Banner"
+          className="home__banner-image"
+        />
       </section>
 
       <section className="home__content">

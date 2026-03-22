@@ -1,7 +1,7 @@
 .back-to-top {
   position: fixed;
   bottom: var(--spacing-xl);
-  right: var(--spacing-xl);
+  right: max(var(--spacing-xl), calc((100vw - var(--content-max-width)) / 2 - 60px));
   width: 44px;
   height: 44px;
   border-radius: 50%;
@@ -43,7 +43,12 @@
   .back-to-top {
     bottom: var(--spacing-lg);
     right: var(--spacing-lg);
-    width: 40px;
-    height: 40px;
+    width: 52px;
+    height: 52px;
+  }
+
+  .back-to-top svg {
+    width: 24px;
+    height: 24px;
   }
 }

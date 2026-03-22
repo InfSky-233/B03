@@ -609,7 +609,7 @@ function generateContent(title: string, sections: string[], mainTag: string): st
 
   content += `![${mainTag}相关图片](${image})\n\n`;
 
-  sections.forEach((section, index) => {
+  sections.forEach((section) => {
     content += `## ${section}\n\n`;
 
     switch (section) {

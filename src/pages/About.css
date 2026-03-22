@@ -5,7 +5,7 @@
 .about__container {
   max-width: var(--content-max-width);
   margin: 0 auto;
-  padding: var(--spacing-4xl) var(--spacing-xl) var(--spacing-3xl);
+  padding: var(--spacing-4xl) var(--spacing-lg) var(--spacing-3xl);
 }
 
 .about__header {
@@ -15,13 +15,16 @@
 
 .about__title {
   font-family: var(--font-heading);
-  font-size: 2.5rem;
+  font-size: 1.875rem;
   font-weight: 700;
-  color: var(--color-text-primary);
+  color: var(--foreground);
   letter-spacing: -0.02em;
 }
 
-.about__content {
+@media (min-width: 640px) {
+  .about__title {
+    font-size: 2.25rem;
+  }
 }
 
 .about__intro {
@@ -32,7 +35,7 @@
 .about__intro-text {
   font-size: 1.125rem;
   line-height: 1.8;
-  color: var(--color-text-secondary);
+  color: var(--foreground);
   max-width: 600px;
   margin: 0 auto var(--spacing-md);
 }
@@ -45,7 +48,7 @@
   font-family: var(--font-heading);
   font-size: 1.25rem;
   font-weight: 700;
-  color: var(--color-text-primary);
+  color: var(--foreground);
   margin-bottom: var(--spacing-xl);
   letter-spacing: -0.02em;
 }
@@ -58,7 +61,7 @@
 
 .about__tech-scroll-container {
   overflow: hidden;
-  margin: 0 calc(-1 * var(--spacing-xl));
+  margin: 0 calc(-1 * var(--spacing-lg));
   padding: var(--spacing-xs) 0;
 }
 
@@ -86,18 +89,10 @@
   align-items: center;
   gap: var(--spacing-sm);
   padding: var(--spacing-md) var(--spacing-lg);
-  background-color: var(--color-bg-secondary);
+  background-color: var(--secondary);
   border-radius: var(--radius-md);
   min-width: 120px;
-  transition: all var(--transition-normal);
-}
-
-.about__tech-item:hover {
-  background-color: var(--color-bg-secondary);
-}
-
-[data-theme="dark"] .about__tech-item:hover .about__tech-name {
-  color: #4bc47a;
+  transition: all var(--transition-base);
 }
 
 .about__tech-icon {
@@ -108,12 +103,13 @@
 .about__tech-name {
   font-size: 0.85rem;
   font-weight: 500;
-  color: var(--color-text-secondary);
+  color: var(--foreground);
   white-space: nowrap;
+  transition: color var(--transition-base);
 }
 
 .about__tech-item:hover .about__tech-name {
-  color: var(--color-text-primary);
+  color: var(--primary);
 }
 
 @keyframes scroll-forward {
@@ -145,20 +141,15 @@
   align-items: center;
   gap: var(--spacing-sm);
   padding: var(--spacing-md) var(--spacing-lg);
-  background-color: var(--color-bg-secondary);
-  color: var(--color-text-secondary);
+  background-color: var(--secondary);
+  color: var(--foreground);
   border-radius: var(--radius-md);
-  font-size: 0.9rem;
-  transition: all var(--transition-normal);
+  font-size: 0.875rem;
+  transition: all var(--transition-base);
 }
 
 .about__contact-link:hover {
-  background-color: var(--color-bg-secondary);
-  color: var(--color-text-primary);
-}
-
-[data-theme="dark"] .about__contact-link:hover {
-  color: #4bc47a;
+  color: var(--primary);
 }
 
 .about__contact-link svg {
@@ -168,13 +159,9 @@
 
 @media (max-width: 768px) {
   .about__container {
-    padding: var(--spacing-3xl) var(--spacing-xl);
+    padding: var(--spacing-3xl) var(--spacing-lg);
   }
-  
-  .about__title {
-    font-size: 2rem;
-  }
-  
+
   .about__intro-text {
     font-size: 1rem;
   }

@@ -1,6 +1,7 @@
 import { useState, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Post } from "../../types";
+import { useNavigation } from "../../contexts/NavigationContext";
 import "./PostCard.css";
 
 interface PostCardProps {
@@ -8,54 +9,90 @@ interface PostCardProps {
   index?: number;
 }
 
-export default function PostCard({ post }: PostCardProps) {
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-  const [isHovering, setIsHovering] = useState(false);
+export default function PostCard({ post, index = 0 }: PostCardProps) {
+  const [ripple, setRipple] = useState<{ x: number; y: number; show: boolean }>(
+    {
+      x: 0,
+      y: 0,
+      show: false,
+    },
+  );
   const cardRef = useRef<HTMLElement>(null);
+  const location = useLocation();
+  const { setSource } = useNavigation();
 
   const handleMouseMove = (e: React.MouseEvent) => {
-    if (cardRef.current) {
-      const rect = cardRef.current.getBoundingClientRect();
-      setMousePos({
-        x: e.clientX - rect.left,
-        y: e.clientY - rect.top,
-      });
+    if (!cardRef.current) return;
+    const rect = cardRef.current.getBoundingClientRect();
+    setRipple({
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top,
+      show: true,
+    });
+  };
+
+  const handleMouseLeave = () => {
+    setRipple((prev) => ({ ...prev, show: false }));
+  };
+
+  const handleClick = () => {
+    const path = location.pathname;
+    if (path === "/") {
+      setSource("home");
+    } else if (path.startsWith("/categories") || path.startsWith("/category")) {
+      setSource("categories");
+    } else if (path.startsWith("/tags") || path.startsWith("/tag")) {
+      setSource("tags");
+    } else if (path === "/about") {
+      setSource("about");
+    } else {
+      setSource(null);
     }
   };
 
   return (
     <article
       ref={cardRef}
-      className="post-card"
+      className="post-card stagger-item"
+      style={{ animationDelay: `${index * 80}ms` }}
       onMouseMove={handleMouseMove}
-      onMouseEnter={() => setIsHovering(true)}
-      onMouseLeave={() => setIsHovering(false)}
+      onMouseLeave={handleMouseLeave}
     >
-      <div
-        className="post-card__circle"
-        style={{
-          left: mousePos.x,
-          top: mousePos.y,
-          opacity: isHovering ? 1 : 0,
-        }}
-      />
-      <div
-        className="post-card__border-glow"
-        style={
-          {
-            "--mouse-x": `${mousePos.x}px`,
-            "--mouse-y": `${mousePos.y}px`,
-            opacity: isHovering ? 1 : 0,
-          } as React.CSSProperties
-        }
-      />
-      <Link to={`/post/${post.id}`} className="post-card__link">
+      {ripple.show && (
+        <>
+          <span className="post-card__border-base" />
+          <span
+            className="post-card__border-glow"
+            style={
+              {
+                "--mouse-x": `${ripple.x}px`,
+                "--mouse-y": `${ripple.y}px`,
+              } as React.CSSProperties
+            }
+          />
+        </>
+      )}
+      {ripple.show && (
+        <span
+          className="post-card__ripple"
+          style={{
+            left: ripple.x,
+            top: ripple.y,
+            width: 200,
+            height: 200,
+          }}
+        />
+      )}
+      <Link
+        to={`/post/${post.id}`}
+        className="post-card__link"
+        onClick={handleClick}
+      >
         <div className="post-card__content">
           <div className="post-card__meta">
-            <time className="post-card__date">{post.date}</time>
-            <span className="post-card__read-time">
-              {post.readTime} 分钟阅读
-            </span>
+            <time>{post.date}</time>
+            <span className="post-card__dot" />
+            <span>{post.readTime} 分钟阅读</span>
           </div>
           <h2 className="post-card__title">{post.title}</h2>
           <p className="post-card__excerpt">{post.excerpt}</p>

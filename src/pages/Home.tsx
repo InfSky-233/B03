@@ -17,15 +17,7 @@ export default function Home() {
       <section className="home__content">
         <div className="home__posts">
           {displayedPosts.map((post, index) => (
-            <div
-              key={post.id}
-              className="post-card-wrapper"
-              style={{
-                animationDelay: `${Math.min(index % 10, 5) * 0.08}s`,
-              }}
-            >
-              <PostCard post={post} index={index} />
-            </div>
+            <PostCard key={post.id} post={post} index={index} />
           ))}
         </div>
 

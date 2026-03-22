@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import ThemeToggle from './ThemeToggle';
+import { useNavigation } from '../../contexts/NavigationContext';
 import './Header.css';
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
+  const { source } = useNavigation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -23,11 +25,26 @@ export default function Header() {
   }, [location.pathname]);
 
   const navLinks = [
-    { path: '/', label: '首页' },
-    { path: '/categories', label: '分类' },
-    { path: '/tags', label: '标签' },
-    { path: '/about', label: '关于' }
+    { path: '/', label: '首页', source: 'home', matchPaths: ['/'] },
+    { path: '/categories', label: '分类', source: 'categories', matchPaths: ['/categories', '/category'] },
+    { path: '/tags', label: '标签', source: 'tags', matchPaths: ['/tags', '/tag'] },
+    { path: '/about', label: '关于', source: 'about', matchPaths: ['/about'] }
   ];
+
+  const isActive = (matchPaths: string[], linkSource: string) => {
+    const currentPath = location.pathname;
+    
+    if (currentPath.startsWith('/post/')) {
+      return source === linkSource;
+    }
+    
+    return matchPaths.some(path => {
+      if (path === '/') {
+        return currentPath === '/';
+      }
+      return currentPath === path || currentPath.startsWith(path + '/');
+    });
+  };
 
   return (
     <header className={`header ${isScrolled ? 'header--scrolled' : ''}`}>
@@ -41,7 +58,7 @@ export default function Header() {
             <Link
               key={link.path}
               to={link.path}
-              className={`header__link ${location.pathname === link.path ? 'header__link--active' : ''}`}
+              className={`header__link ${isActive(link.matchPaths, link.source) ? 'header__link--active' : ''}`}
             >
               {link.label}
             </Link>

@@ -1,17 +1,18 @@
 :root {
-  --color-bg-primary: #faf9f7;
-  --color-bg-secondary: #f5f4f2;
-  --color-bg-tertiary: #ebe9e6;
-  --color-text-primary: #2c2c2c;
-  --color-text-secondary: #5a5a5a;
-  --color-text-tertiary: #8a8a8a;
-  --color-accent: #2d4a5e;
-  --color-accent-light: #3d6478;
-  --color-accent-lighter: rgba(45, 74, 94, 0.1);
-  --color-border: #e5e3e0;
-  --color-border-light: #ececec;
-  --color-shadow: rgba(0, 0, 0, 0.04);
-  --color-shadow-hover: rgba(0, 0, 0, 0.08);
+  --background: #fafaf9;
+  --foreground: #2e2e2e;
+  --card: #fafaf9;
+  --card-foreground: #2e2e2e;
+  --primary: #1e3a5f;
+  --primary-foreground: #fafaf9;
+  --secondary: #f5f5f4;
+  --secondary-foreground: #2e2e2e;
+  --muted: #f5f5f4;
+  --muted-foreground: #8a8a8a;
+  --accent: #f5f5f4;
+  --accent-foreground: #1e3a5f;
+  --border: #e5e5e5;
+  --border-light: #ececec;
   
   --font-heading: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-body: 'Inter', 'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -25,6 +26,8 @@
   --spacing-3xl: 4rem;
   --spacing-4xl: 6rem;
   
+  --transition-base: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-smooth: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   --transition-fast: 0.2s ease;
   --transition-normal: 0.3s ease;
   --transition-slow: 0.5s ease;
@@ -33,25 +36,34 @@
   --radius-md: 8px;
   --radius-lg: 12px;
   
-  --header-height: 72px;
+  --header-height: 64px;
   --content-max-width: 720px;
   --wide-content-max-width: 960px;
+  
+  --shadow-subtle: 0 1px 3px rgba(0, 0, 0, 0.04);
+  --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.06);
+  --shadow-card-hover: 0 8px 30px rgba(0, 0, 0, 0.1);
 }
 
 [data-theme="dark"] {
-  --color-bg-primary: #1a1a1a;
-  --color-bg-secondary: #242424;
-  --color-bg-tertiary: #2e2e2e;
-  --color-text-primary: #e8e8e8;
-  --color-text-secondary: #b0b0b0;
-  --color-text-tertiary: #707070;
-  --color-accent: #4bc47a;
-  --color-accent-light: #5fd48c;
-  --color-accent-lighter: rgba(75, 196, 122, 0.12);
-  --color-border: #333333;
-  --color-border-light: #2a2a2a;
-  --color-shadow: rgba(0, 0, 0, 0.2);
-  --color-shadow-hover: rgba(0, 0, 0, 0.3);
+  --background: #1a1a1a;
+  --foreground: #e8e8e8;
+  --card: #1a1a1a;
+  --card-foreground: #e8e8e8;
+  --primary: #4ade80;
+  --primary-foreground: #ffffff;
+  --secondary: #262626;
+  --secondary-foreground: #e8e8e8;
+  --muted: #262626;
+  --muted-foreground: #a0a0a0;
+  --accent: #262626;
+  --accent-foreground: #4ade80;
+  --border: #333333;
+  --border-light: #2a2a2a;
+  
+  --shadow-subtle: 0 1px 3px rgba(0, 0, 0, 0.2);
+  --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.3);
+  --shadow-card-hover: 0 8px 30px rgba(0, 0, 0, 0.4);
 }
 
 * {
@@ -63,16 +75,16 @@
 html {
   font-size: 16px;
   scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
   font-family: var(--font-body);
-  background-color: var(--color-bg-primary);
-  color: var(--color-text-primary);
-  line-height: 1.7;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  transition: background-color var(--transition-slow), color var(--transition-slow);
+  background-color: var(--background);
+  color: var(--foreground);
+  line-height: 1.6;
+  transition: background-color var(--transition-smooth), color var(--transition-smooth);
 }
 
 a {
@@ -93,8 +105,12 @@ img {
 }
 
 ::selection {
-  background-color: var(--color-accent-lighter);
-  color: var(--color-accent);
+  background: rgba(30, 58, 95, 0.15);
+  color: var(--foreground);
+}
+
+[data-theme="dark"] ::selection {
+  background: rgba(59, 130, 246, 0.2);
 }
 
 ::-webkit-scrollbar {
@@ -107,24 +123,24 @@ img {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--color-border);
+  background: rgba(138, 138, 138, 0.3);
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-text-tertiary);
+  background: rgba(138, 138, 138, 0.5);
 }
 
 .fade-in {
-  animation: fadeIn var(--transition-normal) ease forwards;
+  animation: fadeIn 0.4s ease-out forwards;
 }
 
 .fade-in-up {
-  animation: fadeInUp var(--transition-slow) ease forwards;
+  animation: fadeInUp 0.5s ease-out forwards;
 }
 
-.fade-out {
-  animation: fadeOut var(--transition-normal) ease forwards;
+.stagger-item {
+  animation: stagger-fade-in 0.5s ease-out forwards;
 }
 
 @keyframes fadeIn {
@@ -147,60 +163,39 @@ img {
   }
 }
 
-@keyframes fadeOut {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
-}
-
-@keyframes slideInFromRight {
+@keyframes stagger-fade-in {
   from {
     opacity: 0;
-    transform: translateX(20px);
+    transform: translateY(20px);
   }
   to {
     opacity: 1;
-    transform: translateX(0);
+    transform: translateY(0);
   }
 }
 
-@keyframes pulse {
-  0%, 100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.5;
-  }
+.link-underline {
+  position: relative;
+  text-decoration: none;
 }
 
-@keyframes ripple {
-  to {
-    transform: scale(4);
-    opacity: 0;
-  }
+.link-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--primary);
+  transition: width var(--transition-base);
 }
 
-.skeleton {
-  background: linear-gradient(
-    90deg,
-    var(--color-bg-secondary) 25%,
-    var(--color-bg-tertiary) 50%,
-    var(--color-bg-secondary) 75%
-  );
-  background-size: 200% 100%;
-  animation: skeleton-loading 1.5s infinite;
+.link-underline:hover::after {
+  width: 100%;
 }
 
-@keyframes skeleton-loading {
-  0% {
-    background-position: 200% 0;
-  }
-  100% {
-    background-position: -200% 0;
-  }
+.link-underline.active::after {
+  width: 100%;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -220,8 +215,5 @@ img {
   
   :root {
     --header-height: 60px;
-    --spacing-2xl: 2rem;
-    --spacing-3xl: 2.5rem;
-    --spacing-4xl: 3rem;
   }
 }

@@ -122,9 +122,7 @@ export default function PostPage() {
                   </span>
                   <span className="post__nav-title">{prevPost.title}</span>
                 </Link>
-              ) : (
-                <div className="post__nav-item post__nav-item--empty" />
-              )}
+              ) : null}
               {nextPost ? (
                 <Link
                   to={`/post/${nextPost.id}`}
@@ -143,9 +141,7 @@ export default function PostPage() {
                   </span>
                   <span className="post__nav-title">{nextPost.title}</span>
                 </Link>
-              ) : (
-                <div className="post__nav-item post__nav-item--empty" />
-              )}
+              ) : null}
             </div>
           </div>
         </nav>

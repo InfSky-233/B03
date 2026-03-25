@@ -35,7 +35,7 @@
 }
 
 .post__header {
-  padding-top: var(--spacing-xs);
+  padding-top: var(--spacing-4xl);
   margin-bottom: var(--spacing-2xl);
 }
 

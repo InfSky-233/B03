@@ -1,4 +1,5 @@
 import "./About.css";
+import LetterGlitch from "../components/ui/LetterGlitch";
 
 const techStack = [
   { name: "React", icon: "R" },
@@ -18,6 +19,12 @@ const techStack = [
 export default function About() {
   return (
     <div className="about">
+      <LetterGlitch
+        glitchColors={["#1e3a5f", "#4ade80", "#61b3dc"]}
+        glitchSpeed={80}
+        outerVignette={true}
+        smooth={true}
+      />
       <div className="about__container">
         <header className="about__header">
           <h1 className="about__title">关于我</h1>

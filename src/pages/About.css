@@ -1,11 +1,14 @@
 .about {
   min-height: 100%;
+  position: relative;
 }
 
 .about__container {
+  position: relative;
   max-width: var(--content-max-width);
   margin: 0 auto;
   padding: var(--spacing-2xl) var(--spacing-md) var(--spacing-2xl);
+  z-index: 1;
 }
 
 @media (min-width: 640px) {
@@ -29,8 +32,9 @@
   font-family: var(--font-heading);
   font-size: 1.875rem;
   font-weight: 700;
-  color: var(--foreground);
+  color: #ffffff;
   letter-spacing: -0.02em;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
 }
 
 @media (min-width: 640px) {
@@ -47,9 +51,10 @@
 .about__intro-text {
   font-size: 1.125rem;
   line-height: 1.8;
-  color: var(--foreground);
+  color: rgba(255, 255, 255, 0.9);
   max-width: 600px;
   margin: 0 auto var(--spacing-md);
+  text-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
 }
 
 .about__section {
@@ -60,15 +65,17 @@
   font-family: var(--font-heading);
   font-size: 1.25rem;
   font-weight: 700;
-  color: var(--foreground);
+  color: #ffffff;
   margin-bottom: var(--spacing-xl);
   letter-spacing: -0.02em;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
 }
 
 .about__tech {
   display: flex;
   flex-wrap: wrap;
   gap: var(--spacing-md);
+  justify-content: center;
 }
 
 .about__tech-item {
@@ -76,13 +83,16 @@
   align-items: center;
   gap: var(--spacing-sm);
   padding: var(--spacing-md) var(--spacing-lg);
-  background-color: var(--secondary);
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
   border-radius: var(--radius-md);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   transition: all var(--transition-base);
 }
 
 .about__tech-item:hover {
-  color: var(--primary);
+  background-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
 }
 
 .about__tech-icon {
@@ -94,26 +104,28 @@
   font-size: 0.7rem;
   font-weight: 700;
   line-height: 1;
-  border: 1.5px solid var(--foreground);
+  border: 1.5px solid rgba(255, 255, 255, 0.8);
   border-radius: 4px;
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .about__tech-name {
   font-size: 0.85rem;
   font-weight: 500;
-  color: var(--foreground);
+  color: rgba(255, 255, 255, 0.9);
   white-space: nowrap;
   transition: color var(--transition-base);
 }
 
 .about__tech-item:hover .about__tech-name {
-  color: var(--primary);
+  color: #ffffff;
 }
 
 .about__contact {
   display: flex;
   flex-wrap: wrap;
   gap: var(--spacing-lg);
+  justify-content: center;
 }
 
 .about__contact-link {
@@ -121,15 +133,19 @@
   align-items: center;
   gap: var(--spacing-sm);
   padding: var(--spacing-md) var(--spacing-lg);
-  background-color: var(--secondary);
-  color: var(--foreground);
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.9);
   border-radius: var(--radius-md);
   font-size: 0.875rem;
   transition: all var(--transition-base);
 }
 
 .about__contact-link:hover {
-  color: var(--primary);
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  transform: translateY(-2px);
 }
 
 .about__contact-link svg {

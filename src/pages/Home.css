@@ -20,6 +20,10 @@
   /* clip-path: inset(0 0 20% 0); */
 }
 
+[data-theme="dark"] .home__banner-image {
+  filter: brightness(0.8);
+}
+
 .home__banner::after {
   content: '';
   position: absolute;
